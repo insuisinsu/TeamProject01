@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+
+<!-- 어노테이션 기반 사용 설정 : com.springbook.biz 패키지 하위의 모든 클래스의 어노테이션을 
+	게더링 함 -->
+
+<context:component-scan base-package="com.springbook.biz"></context:component-scan>
+<mvc:annotation-driven></mvc:annotation-driven>
+
+
+<!--  AOP 어노테이션을 검색할 수 있도록 설정  
+<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+-->
+
+<!-- DataSource 설정 2.  (프로퍼티 파일을 사용한 설정)  : 
+	DB 연동 할때 사용 , JDBCTemplate, mybatis , JPA 연동시 사용 -->
+<context:property-placeholder location="classpath:config/oracle.properties"  />
+<bean id= "dataSource" class = "org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name = "driverClassName" value = "${jdbc.driver}" />
+	<property name = "url" value = "${jdbc.url}" /> 
+	<property name = "username" value= "${jdbc.username}" />
+	<property name = "password" value= "${jdbc.password}" /> 
+</bean>
+
+<!-- Spring JDBC 설정 : JDBCTemplate 객체생성해서 DI   -->
+<bean id = "jdbcTemplate" class = "org.springframework.jdbc.core.JdbcTemplate">
+	<property name = "dataSource" ref = "dataSource" /> 
+</bean>
+
+<!--  MyBatis 설정 : SQL SessionFactory 생성 , DB 연결 설정 까지 구성됨.  -->
+<bean id="sessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource" />
+	<property name="configLocation" value="classpath:sql-map-config.xml" />
+
+</bean>
+
+<!-- Spring 과 MyBatis연동 설정  -->
+<bean id="sqlSession" class = "org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource" />
+	<property name="configLocation" value="classpath:sql-map-config.xml" />
+
+</bean>
+
+<!-- SqlSessionTemplate 생성  -->
+<bean class = "org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg ref="sqlSession"></constructor-arg>
+</bean>
+
+
+<!--  트랜 잭션 설정  : 트랜잭션을 처리하는 관리자를 빈등록 -->
+	<!-- 트랜잭션 관리자 빈등록 
+<bean id ="txManager" class = "org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref= "dataSource"></property>
+</bean>
+-->
+<!-- 트랜잭션 어드바이스 셋팅  
+<tx:advice id = "txAdvice" transaction-manager= "txManager">
+	<tx:attributes>
+		<tx:method name="get*" read-only="true"/>   
+		<tx:method name="*"/>	
+	</tx:attributes>
+</tx:advice>
+-->
+<!-- 트랜잭션이 처리될 포인트컷 지정 : 트랜잭션을 처리할 필터링된 메소드 설정 
+<aop:config>
+	<aop:pointcut expression="execution(* com.springbook.biz..*(..))" id="txPointcut" />
+	<aop:advisor pointcut-ref="txPointcut" advice-ref= "txAdvice"/>
+</aop:config>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- DataSource 설정 1.  (기본 셋팅)  : DB 연동 할때 사용 , JDBCTemplate, mybatis , JPA 연동시 사용 
+<bean id= "dataSource" class = "org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name = "driverClassName" value = "org.h2.Driver" />
+	<property name = "url" value = "jdbc:h2:tcp://localhost/~/test" /> 
+	<property name = "username" value= "sa" />
+	<property name = "password" value= "" /> 
+</bean>
+-->
+
+
+
+
+
+
+
+<!--  AroundAdvice2 : JoinPoint 와 바인드 변수 적용  
+<bean id = "log" class = "com.springbook.biz.common.AroundAdvice2"></bean>
+-->
+<!-- AOP 설정  
+<aop:config>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut"/>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.get*(..))" id="getPointcut"/>
+ 
+ <aop:aspect ref= "log">
+ 	<aop:around  pointcut-ref = "allPointcut" method="aroundLog" />	
+ 
+ </aop:aspect>
+
+</aop:config>
+-->
+
+
+
+<!--  AfterThrowingAdvice2 : JoinPoint 와 바인드 변수 적용  
+<bean id = "log" class = "com.springbook.biz.common.AfterThrowingAdvice2"></bean>
+-->
+<!-- AOP 설정  
+<aop:config>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut"/>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.get*(..))" id="getPointcut"/>
+ 
+ <aop:aspect ref= "log">
+ 	<aop:after-throwing  pointcut-ref = "allPointcut" method="exceptionLog" throwing = "exceptionObj"/>	
+ 
+ </aop:aspect>
+
+</aop:config>
+-->
+
+
+
+
+
+<!--  AfterReturingAdvice2 : JoinPoint 와 바인드 변수 적용 
+<bean id = "log" class = "com.springbook.biz.common.AfterReturning2"></bean>
+ -->
+<!-- AOP 설정  
+<aop:config>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut"/>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.get*(..))" id="getPointcut"/>
+ 
+ <aop:aspect ref= "log">
+ 	<aop:after-returning  pointcut-ref = "allPointcut" method="afterReturningLog" returning = "returnObj"/>	
+ 	
+ </aop:aspect>
+
+</aop:config>
+-->
+
+
+
+<!--  BeforeAdvice2 : JoinPoint 와 바인드 변수 적용   
+<bean id = "log" class = "com.springbook.biz.common.BeforeAdvice2"></bean>
+--> 
+<!-- AOP 설정  
+<aop:config>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut"/>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.get*(..))" id="getPointcut"/>
+ 
+ <aop:aspect ref= "log">
+ 	<aop:before  pointcut-ref = "allPointcut" method="beforeLog"/>	
+ </aop:aspect>
+
+</aop:config>
+-->
+
+
+
+
+<!--  
+<bean id = "log" class = "com.springbook.biz.common.AfterThrowingAdvice"></bean>
+-->
+<!-- AOP 설정  
+<aop:config>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.*(..))" id="allPointcut"/>
+ <aop:pointcut expression="execution(* com.springbook.biz..*Impl.get*(..))" id="getPointcut"/>
+ 
+ <aop:aspect ref= "log">
+ 	<aop:after-throwing  pointcut-ref = "allPointcut" method="exceptionLog"/>
+ 	
+ </aop:aspect>
+
+</aop:config>
+-->
+
+
+
+
+
+
+
+
+
+
+<!-- 생성자 를 사용한 객체 주입 : UserServiceImpl.java 설정 
+<bean id = "userService" class ="com.springbook.biz.impl.UserServiceImpl">
+	<constructor-arg ref = "userDAO"></constructor-arg>
+</bean>
+
+<bean id = "userDAO" class = "com.springbook.biz.impl.UserDAO"> </bean>
+-->
+
+<!-- Setter 를 사용한 객체 주입 : UserServiceImpl.java 설정  
+<bean id = "userService" class ="com.springbook.biz.impl.UserServiceImpl">
+	<property name = "userDAO" ref = "userDAO"> </property>
+</bean>
+
+<bean id = "userDAO" class = "com.springbook.biz.impl.UserDAO"> </bean>
+ -->
+
+<!--
+ 
+<context:component-scan base-package="polymorphism_5_1_1"></context:component-scan>
+
+  
+<context:component-scan base-package="polymorphism_5_2_1"></context:component-scan>
+-->
+
+<!-- 스프링 프레임 워크에서 객체를 생성후 DI(의존성 주입)으로 객체를 주입한다.  -->
+
+<!--  SamsungTV 객체를 Spring framework에서 생성해서 DI (의존성 주입으로 )  -->
+<!-- id : 객체명, class : 패키지명.클래스명 
+     polymorphism_3_1_2 
+--> 
+<!--    새로운 기능이나 변경 사항이 생겼을때 자바파일의 수정은 하지 않고 Bean파일만 생성해서 수정하면 된다. 
+
+<bean id = "tv" class = "polymorphism_3_1_2.SamsungTV"></bean>
+<bean id = "tv" class = "polymorphism_3_1_2.LgTV"></bean>
+ -->
+ 
+ 
+ <!--  Bean 생성시 id를 생략된 경우 : 클래스 이름의 첫자를 소문자로 바뀌고 호출 
+ 		lgTV 클라이언트에서 객체 호출 : id = lgTV 
+  -->
+  <!-- 
+ <bean id="tv" class = "polymorphism_3_1_2.SamsungTV"></bean>
+  -->
+
+ <!-- scope 옵션 : 
+ 		- singleton  : 단 하나의 객체만 생성되도록 설정  (기본값) 
+ 		- prototype : 여러개의 객체를 생성 할 수 있도록 설정 
+  -->
+  <!--
+<bean id = "tv" class = "polymorphism_4_1_2.SamsungTV" scope = "singleton"></bean>
+-->
+
+
+<!--  init-method 옵션 : 빈에서 객체를 생성후 호출하는 메소드  -->
+<!--  destroy-method 옵션 : 객체 종료 직전에 호출되는 메소드  -->
+<!--  
+<bean id = "tv" class = "polymorphism_4_1_2.SamsungTV" init-method="initMethod"
+	destroy-method= "destroyMethod"></bean>
+-->
+<!--  lazy-init 
+		Spring 컨테이너가 객체를 메모리에 로딩 하는 방식 : pre-loading 방식 ( 메모리에 즉시 로딩) 
+		lazy-int = "true" : 요청이 있을 때만 메모리에 로딩 
+
+<bean id = "tv" class = "polymorphism_4_1_2.SamsungTV" lazy-init = "true"> </bean> 
+ -->
+	
+<!-- 생성자에 객체 전달 : 4_2 셋팅 사항 
+		ref : 생성자 매개 변수로 참조형 변수를 전달 (객체, 배열...)
+		value : 생성자 매개 변수로 기본 자료형 (정수 , 문자열 ...) 
+	
+-->	
+<!--  
+<bean id = "tv" class = "polymorphism_4_2.SamsungTV" >
+	<constructor-arg ref = "sony"></constructor-arg>
+</bean>
+
+<bean id = "sony" class = "polymorphism_4_2.SonySpeaker"></bean>
+-->
+
+<!--  생성자에 여러개의 매개 변수 설정 하기 : 4_2_1 설정   -->
+<!--   
+<bean id = "tv" class = "polymorphism_4_2_1.SamsungTV" >
+	<constructor-arg ref = "sony"></constructor-arg>
+	<constructor-arg value = "3000000"></constructor-arg>
+</bean>
+
+<bean id = "sony" class = "polymorphism_4_2_1.SonySpeaker"></bean>
+--> 
+
+<!-- 별도의 스피커 객체 생성 : 인터페이스를 통한 설정 : (Speaker) -->
+<!--  
+<bean id = "tv" class = "polymorphism_4_2_2.SamsungTV" >
+	<constructor-arg ref = "sony"></constructor-arg>
+</bean>
+
+<bean id = "sony" class = "polymorphism_4_2_2.SonySpeaker"></bean>
+-->
+
+<!-- Setter에 객체 주입: 4_3_1 셋팅 사항  
+		property name = speaker      : setSpeaker() 호출 
+		property name = price		 : setPrice() 호출 
+
+ -->
+ 
+<!--    
+<bean id = "tv" class = "polymorphism_4_3_1.SamsungTV" >
+	<property name="speaker" ref="apple"></property>
+	<property name="price" value="3000000"></property>
+</bean>
+
+<bean id = "sony" class = "polymorphism_4_3_1.SonySpeaker"></bean>
+<bean id = "apple" class = "polymorphism_4_3_1.AppleSpeaker"></bean>
+--> 
+
+
+
+<!--  p 네임 스페이스 사용하기 : 객체 주입을 쉽게 사용 : 4_3_2 셋팅 사항  
+	p:변수명-ref = "참조할 객체 이름 또는 아이디"	<== 참조변수
+	p:변수명 = "설정값"							<== 기본변수
+-->
+<!--  
+<bean id = "tv" class = "polymorphism_4_3_2.SamsungTV" 
+	p:speaker-ref="apple" p:price="3550000" ></bean>
+
+<bean id = "sony" class = "polymorphism_4_3_2.SonySpeaker"></bean>
+<bean id = "apple" class = "polymorphism_4_3_2.AppleSpeaker"></bean>
+-->
+
+</beans>

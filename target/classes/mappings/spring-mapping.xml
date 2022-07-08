@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sjoin">
+<resultMap type="semp" id="sempMap">
+	<id property="empno" column="EMPNO" />
+	<result property="ename" column="ENAME"/>
+	<result property="sal" column="SAL"/>
+	<result property="deptno" column="DEPTNO"/>
+</resultMap>
+<resultMap type="sdept" id="sdeptMap">
+	<id property="deptno" column="DEPTNO" />
+	<result property="dname" column="DNAME"/>
+	<result property="loc" column="LOC"/>
+</resultMap>
+<resultMap type="sjoinvo" id="sjoinMap">
+	<collection property="sempJ" resultMap="sempMap" />
+	<collection property="sdeptJ" resultMap="sdeptMap" />
+</resultMap>
+
+
+
+
+<insert id="insertSjoin">
+	<![CDATA[
+
+	]]>
+</insert>
+
+<update id="updateSjoin">
+	<![CDATA[
+
+	]]>
+</update>
+
+<delete id="deleteSjoin">
+	<![CDATA[
+
+	]]>
+</delete>
+
+<select id="selectOneSjoin" resultType="sjoinvo">
+
+	<![CDATA[
+
+	]]>
+		
+</select>
+
+<select id="selectListSjoin" resultMap="sjoinMap">
+	<![CDATA[
+		SELECT E.EMPNO, E.ENAME, E.SAL, D.DEPTNO, D.DNAME, D.LOC
+		FROM SPRING_EMPLOYMENT E, SPRING_DEPARTMENT D
+		WHERE E.DEPTNO = D.DEPTNO
+	]]>
+</select>
+
+
+
+</mapper>

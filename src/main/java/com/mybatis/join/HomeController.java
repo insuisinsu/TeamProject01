@@ -1,4 +1,4 @@
-package com.aaa.bbb;
+package com.mybatis.join;
 
 import java.text.DateFormat;
 import java.util.Date;
