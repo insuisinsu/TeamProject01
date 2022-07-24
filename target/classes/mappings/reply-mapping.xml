@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+
+	<resultMap type="member" id="memberMap">
+		<id property="m_num" column="M_NUM"></id>
+		<result property="m_id" column="M_ID"></result>
+		<result property="m_pass" column="M_PW"></result>
+		<result property="m_email" column="M_EMAIL"></result>
+	</resultMap>
+
+	<resultMap type="mvreply" id="remv_voMap" >
+		<id property="remv_id" column="REMV_ID"></id>
+		<result property="remv_content" column="REMV_CONTENT" />
+		<result property="remv_rdate" column="REMV_RDATE" />
+		<result property="mv_id" column="MV_ID" />
+		<result property="m_num" column="M_NUM" />
+	</resultMap>
+
+	<resultMap id="mvResult" type="mv">
+		<id property="mv_id" column="MV_ID" />
+		<result property="mv_name" column="MV_NAME" />
+		<result property="mv_singer" column="MV_SINGER" />
+		<result property="mv_album" column="MV_ALBUM" />
+		<result property="mv_url" column="MV_URL" />
+		<result property="mv_imgurl" column="MV_IMGURL" />
+		<result property="mv_rdate" column="MV_RDATE" />
+		<result property="mv_lyrics" column="MV_LYRICS" />
+		<result property="theme_id" column="THEME_ID" />
+	</resultMap>
+	
+	<!-- 댓글 내용 입력 -->
+	<insert id="insertMVReply">
+	<![CDATA[
+		INSERT INTO REPLY_MV
+		VALUES(ID_SEQ.NEXTVAL, #{remv_content}, default, #{m_num}, #{mv_id})
+	]]>
+	</insert>
+	
+	<!-- 멤버에서 가져오기 -->
+	<select id="selectMember" resultMap="memberMap">
+	<![CDATA[
+		SELECT * FROM MEMBER
+	]]>
+	</select>
+	
+	<!-- 댓글목록 가져오기 -->
+	<select id="selectMVReply" resultMap="remv_voMap">
+	<![CDATA[
+		SELECT * FROM REPLY_MV
+		ORDER BY REMV_ID
+	]]>
+		</select>
+</mapper>
