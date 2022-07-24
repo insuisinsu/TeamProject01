@@ -3,20 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>	
-
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
 	<typeAliases>
-		<typeAlias type="com.springbook.biz.board.BoardVO" alias="board"></typeAlias>
-		<typeAlias type="com.springbook.biz.user.UserVO" alias="user"></typeAlias>
-		<typeAlias type="com.mybatis.join.VO.DepartmentVO" alias="dept"></typeAlias>
-		<typeAlias type="com.mybatis.join.VO.EmployeeVO" alias="emp"></typeAlias>
-		<typeAlias type="com.mybatis.join.VO.JoinVO" alias="joinvo"></typeAlias>
+		<typeAlias type="com.springbook.biz.reply.MemberVOTest" alias="member"/>
+		<typeAlias type="com.springbook.biz.reply.Reply_MV_VO" alias="mvreply"></typeAlias>
+		<typeAlias type="com.mybatis.mv.MusicvideoVO" alias="mv"></typeAlias>
 	</typeAliases>
 
 
+    
 	<mappers>
-		<mapper resource="mappings/board-mapping.xml" />
-		<mapper resource="mappings/user-mapping.xml" />
-		<mapper resource="mappings/join-mapping.xml" />
-		<mapper resource="mappings/spring-mapping.xml" />
+		<mapper resource="mappings/mv-mapping.xml" />
+		<mapper resource="mappings/reply-mapping.xml" />
 	</mappers>
 </configuration>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MusicvideoDAO">
+
+	<resultMap id="mvResult" type="mv">
+		<id property="mv_id" column="MV_ID" />
+		<result property="mv_name" column="MV_NAME" />
+		<result property="mv_singer" column="MV_SINGER" />
+		<result property="mv_album" column="MV_ALBUM" />
+		<result property="mv_url" column="MV_URL" />
+		<result property="mv_imgurl" column="MV_IMGURL" />
+		<result property="mv_rdate" column="MV_RDATE" />
+		<result property="mv_lyrics" column="MV_LYRICS" />
+		<result property="theme_id" column="THEME_ID" />
+	</resultMap>
+
+	<!--  뮤비 등록 -->
+	<insert id="insertMV" parameterType="mv">
+		<![CDATA[
+		INSERT INTO MUSICVIDEO(MV_ID, MV_NAME, MV_SINGER, MV_ALBUM, MV_URL, MV_IMGURL, MV_RDATE, MV_LYRICS, THEME_ID) 
+		VALUES (mv_seq.nextval, #{mv_name}, #{mv_singer}, #{mv_album}, #{mv_url}, #{mv_imgurl}, #{mv_rdate}, #{mv_lyrics}, #{theme_id})
+		]]>
+	</insert>
+	
+	<!-- 뮤비 수정 -->
+	<update id="updateMV">
+		<![CDATA[
+		UPDATE MUSICVIDEO SET
+		
+		MV_NAME = #{mv_name}, MV_SINGER = #{mv_singer}, MV_ALBUM = #{mv_album}, MV_URL = #{mv_url}, MV_IMGURL = #{mv_imgurl}, 
+		MV_RDATE = #{mv_rdate}, MV_LYRICS = #{mv_lyrics}, THEME_ID = #{theme_id}	
+		WHERE MV_ID = #{mv_id}
+		]]>
+	</update>
+
+	<!-- 뮤비 삭제 -->
+	<delete id="deleteMV">
+		<![CDATA[
+		DELETE MUSICVIDEO
+		WHERE MV_ID = #{mv_id}
+		]]>
+	</delete>
+
+	<!-- 번호에 맞는 뮤비 불러오기 -->
+	<select id="getMV" resultType="mv">
+		<![CDATA[
+		SELECT *
+		FROM MUSICVIDEO
+		WHERE MV_ID = #{mv_id}
+		]]>
+	</select>
+	
+	<!-- 좋아요 수에 따라 뮤비 불러오기 -->
+	<select id="getlikeMV" resultMap="mvResult">
+		<![CDATA[
+		SELECT *
+		FROM MUSICVIDEO
+		ORDER BY MV_LIKE_COUNT DESC
+		]]>
+	</select>
+	
+	
+	<!-- 테마에 맞는 뮤비 불러오기 -->
+	<select id="getthemeMV" resultMap="mvResult">
+		<![CDATA[
+		SELECT *
+		FROM MUSICVIDEO
+		WHERE THEME_ID = #{theme_id}
+		]]>
+	</select>
+
+	<!-- 번호에 따라 리스트 불러오기 (전체) -->
+	<select id="getMVList" resultMap="mvResult">
+		<![CDATA[
+		SELECT *
+		FROM MUSICVIDEO
+		ORDER BY MV_ID DESC
+		]]>
+	</select>
+
+</mapper>
