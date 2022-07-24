@@ -7,7 +7,7 @@ public class MemberVOTest {
     private int m_num;
     private String m_id;
     private String m_pass;
-    private String email;
+    private String m_email;
     
     public int getM_num() {
         return m_num;
@@ -27,11 +27,11 @@ public class MemberVOTest {
     public void setM_pass(String m_pass) {
         this.m_pass = m_pass;
     }
-    public String getEmail() {
-        return email;
+    public String getM_email() {
+        return m_email;
     }
-    public void setEmail(String email) {
-        this.email = email;
+    public void setM_email(String email) {
+        this.m_email = email;
     }
 
     
