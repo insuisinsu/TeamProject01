@@ -1,6 +1,10 @@
 package com.mybatis.mv;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.util.List; 
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +43,23 @@ public class MusicvideoDAOMyBatis {
 	}
 	
 	
+<<<<<<< HEAD
 	// 넘어오는 값(레코드)이 여러개 인 경우 (테마별)
 	public List<MusicvideoVO> getMVList(MusicvideoVO vo, Criteria cri) {
+=======
+	
+	
+	
+	// 넘어오는 값(레코드)이 여러개 인 경우
+	public List<MusicvideoVO> getMVList(MusicvideoVO vo) { 	
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 		System.out.println("MyBatis를 사용해서 getMVList() 수행 ");
 		
 		return mybatis.selectList("MusicvideoDAO.getMVList", vo);
 	}
 	
 	
+<<<<<<< HEAD
 	// 넘어오는 값(레코드)이 여러개 인 경우 (전체)
 	public List<MusicvideoVO> getMVAllList(MusicvideoVO vo, Criteria cri) {
 		System.out.println("MyBatis를 사용해서 getMVAllList() 수행 ");
@@ -58,5 +71,9 @@ public class MusicvideoDAOMyBatis {
 		return mybatis.selectOne("MusicvideoDAO.listCount");
 	}
 
+=======
+	
+	
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 	
 }

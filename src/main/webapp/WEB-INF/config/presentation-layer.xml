@@ -11,7 +11,11 @@
 
 <!-- com.springbook.biz 하위의 모든 클래스에서 @(annotation)을 스캔 가능하도록  -->
 <context:component-scan base-package="com.mybatis"></context:component-scan>
+<<<<<<< HEAD
 
+=======
+<context:component-scan base-package="com.springbook"></context:component-scan>
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 
  		
    <!-- @ControllerAdvice 와 @ExceptionHandler 어노테이션을 게더링 하기 위한 설정 -->

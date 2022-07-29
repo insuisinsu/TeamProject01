@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+=======
+<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +21,11 @@
 <!-- 네비바 시작 -->
 <nav>
 	<ul style="width: 500px; border: 1px solid;">
+<<<<<<< HEAD
 		<li> <a href = "getMVAllList.do"> 최신음악 </a></li>
+=======
+		<li>최신음악</li>
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 		<li>인기음악</li>
 		<li>장르음악</li>
 		<li>플레이리스트</li>
@@ -28,6 +36,7 @@
 	</div>
 	
 	<div style= "float: right; width: 50%; text-align: right;">
+<<<<<<< HEAD
 	<button id = "allMV-btn" class = "MV-btn2"> <a href = "getMVAllList.do"> 전체 </a>  </button>
 	<button id = "DanMV-btn" class = "MV-btn2"> <a href = "getMVList.do?theme_id=1"> 댄스 </a>  </button>			<!-- THEME_ID 1 : 댄스 -->
 	<button id = "BalMV-btn" class = "MV-btn2"> <a href = "getMVList.do?theme_id=2"> 발라드 </a> </button>		<!-- THEME_ID 2 : 발라드 -->
@@ -36,6 +45,16 @@
 	<button id = "IndMV-btn" class = "MV-btn2"> <a href = "getMVList.do?theme_id=5"> 인디 </a> </button>			<!-- THEME_ID 5 : 인디 -->
 	<button id = "TroMV-btn" class = "MV-btn2"> <a href = "getMVList.do?theme_id=6"> 트로트 </a> </button>		<!-- THEME_ID 6 : 트로트 -->
 	<button id = "RnbMV-btn" class = "MV-btn2"> <a href = "getMVList.do?theme_id=7"> R&B </a> </button>			<!-- THEME_ID 7 : R&B -->
+=======
+	<button id = "allMV-btn" class = "MV-btn2"> 전체 </button>
+	<button id = "DanMV-btn" class = "MV-btn2"> 댄스 </button>
+	<button id = "BalMV-btn" class = "MV-btn2"> 발라드 </button>
+	<button id = "PopMV-btn" class = "MV-btn2"> POP </button>
+	<button id = "RapMV-btn" class = "MV-btn2"> 랩/힙합 </button>
+	<button id = "IndMV-btn" class = "MV-btn2"> 인디 </button>
+	<button id = "TroMV-btn" class = "MV-btn2"> 트로트 </button>
+	<button id = "RnbMV-btn" class = "MV-btn2"> R&B </button>
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 	</div>
 </nav>
 <!-- 네비바 마무리 -->
@@ -65,6 +84,7 @@
 	</tr>
 	</c:forEach>
 </table>
+<<<<<<< HEAD
 
 <div>
   <ul>
@@ -88,5 +108,9 @@
 
 
 
+=======
+</center> <!--  테이블 마무리-->
+
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 </body>
 </html>

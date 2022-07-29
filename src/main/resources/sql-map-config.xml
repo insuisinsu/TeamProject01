@@ -4,17 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>	
     <settings>
+<<<<<<< HEAD
         <setting name="jdbcTypeForNull" value="NULL" /> <!-- insert 안되서 넣어본 세팅 -->
     </settings>
 	<typeAliases>
 
 		<typeAlias type="com.mybatis.mv.MusicvideoVO" alias="mv"></typeAlias>
 
+=======
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
+	<typeAliases>
+		<typeAlias type="com.springbook.biz.reply.MemberVOTest" alias="member"/>
+		<typeAlias type="com.springbook.biz.reply.Reply_MV_VO" alias="mvreply"></typeAlias>
+		<typeAlias type="com.mybatis.mv.MusicvideoVO" alias="mv"></typeAlias>
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 	</typeAliases>
 
 
     
 	<mappers>
 		<mapper resource="mappings/mv-mapping.xml" />
+<<<<<<< HEAD
+=======
+		<mapper resource="mappings/reply-mapping.xml" />
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 	</mappers>
 </configuration>

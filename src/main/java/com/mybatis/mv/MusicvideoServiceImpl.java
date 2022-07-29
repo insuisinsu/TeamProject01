@@ -1,8 +1,12 @@
 package com.mybatis.mv;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +21,11 @@ public class MusicvideoServiceImpl implements MusicvideoService {
 	@Autowired
 	private MusicvideoDAOMyBatis MusicvideoDAO;
 	
+<<<<<<< HEAD
 	
 
+=======
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 
 	@Override
 	public void insertMV(MusicvideoVO vo) {
@@ -41,6 +48,7 @@ public class MusicvideoServiceImpl implements MusicvideoService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<MusicvideoVO> getMVList(MusicvideoVO vo, Criteria cri) {
 		return MusicvideoDAO.getMVList(vo, cri);
 	}
@@ -57,5 +65,11 @@ public class MusicvideoServiceImpl implements MusicvideoService {
 
 
 
+=======
+	public List<MusicvideoVO> getMVList(MusicvideoVO vo) {
+		return MusicvideoDAO.getMVList(vo);
+	}
+
+>>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 	
 }
