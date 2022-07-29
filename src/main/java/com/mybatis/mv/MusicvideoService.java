@@ -17,7 +17,6 @@ public interface MusicvideoService {
 	// 뮤직비디오 상세 조회 
 	MusicvideoVO getMV(MusicvideoVO vo);
 
-<<<<<<< HEAD
 	// 뮤직비디오 목록 조회 (테마)
 	List<MusicvideoVO> getMVList(MusicvideoVO vo, Criteria cri);
 	
@@ -27,8 +26,4 @@ public interface MusicvideoService {
 	// 게시물 총 개수
 	int listCount();
 	
-=======
-	// 뮤직비디오 목록 조회
-	List<MusicvideoVO> getMVList(MusicvideoVO vo);
->>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 }

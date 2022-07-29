@@ -19,11 +19,7 @@
 	<insert id="insertMV" parameterType="mv">
 		<![CDATA[
 		INSERT INTO MUSICVIDEO(MV_ID, MV_NAME, MV_SINGER, MV_ALBUM, MV_URL, MV_IMGURL, MV_RDATE, MV_LYRICS, THEME_ID) 
-<<<<<<< HEAD
 		VALUES (mv_seq.nextval, #{mv_name}, #{mv_singer}, #{mv_album}, #{mv_url}, #{mv_imgurl}, TO_DATE('#{mv_rdate}','YYYY-MM-DD') #{mv_lyrics}, #{theme_id})
-=======
-		VALUES (mv_seq.nextval, #{mv_name}, #{mv_singer}, #{mv_album}, #{mv_url}, #{mv_imgurl}, #{mv_rdate}, #{mv_lyrics}, #{theme_id})
->>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 		]]>
 	</insert>
 	
@@ -55,11 +51,7 @@
 		]]>
 	</select>
 	
-<<<<<<< HEAD
 	<!-- 좋아요 수에 따라 뮤비 불러오기 
-=======
-	<!-- 좋아요 수에 따라 뮤비 불러오기 -->
->>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 	<select id="getlikeMV" resultMap="mvResult">
 		<![CDATA[
 		SELECT *
@@ -67,44 +59,29 @@
 		ORDER BY MV_LIKE_COUNT DESC
 		]]>
 	</select>
-<<<<<<< HEAD
 	-->	
 	
-	<!-- 테마에 따라 뮤비 리스트 불러오기 -->
+	<!-- 테마에 따라 뮤비 리스트 불러오기
 	<select id="getMVList" resultMap="mvResult">
-=======
-	
-	
-	<!-- 테마에 맞는 뮤비 불러오기 -->
-	<select id="getthemeMV" resultMap="mvResult">
->>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 		<![CDATA[
 		SELECT *
 		FROM MUSICVIDEO
 		WHERE THEME_ID = #{theme_id}
-<<<<<<< HEAD
 		ORDER BY MV_ID DESC
 		]]>
 	</select>
+	 -->
 	
-	
-	<!-- 번호에 따라 리스트 불러오기 (전체) 	-->
+	<!-- 번호에 따라 리스트 불러오기 (전체) 	
 	<select id="getMVAllList" resultMap="mvResult">
-=======
-		]]>
-	</select>
-
-	<!-- 번호에 따라 리스트 불러오기 (전체) -->
-	<select id="getMVList" resultMap="mvResult">
->>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
 		<![CDATA[
 		SELECT *
 		FROM MUSICVIDEO
 		ORDER BY MV_ID DESC
 		]]>
 	</select>
+	-->
 
-<<<<<<< HEAD
 	<select id="listCount" resultType="int">
 	<![CDATA[
 		SELECT COUNT(MV_ID)
@@ -113,8 +90,65 @@
 	]]>
 	</select>
 	
+	<!-- 페이징 출력용 (테마) -->
+	<select id="getMVList" resultMap="mvResult" parameterType="com.mybatis.mv.Criteria">
+		<![CDATA[
+			SELECT MV_ID, 
+			       MV_NAME, 
+			       MV_SINGER,
+			       MV_ALBUM, 
+			       MV_URL,
+	               MV_IMGURL,
+	               MV_RDATE,
+	               MV_LYRICS,
+	               THEME_ID 
+	                
+			 FROM ( 
+			        SELECT MV_ID, 
+	                    MV_NAME, 
+	                    MV_SINGER,
+	                    MV_ALBUM, 
+	                    MV_URL,
+	                    MV_IMGURL,
+	                    MV_RDATE,
+	                    MV_LYRICS,
+	                    THEME_ID,
+	                    ROW_NUMBER() OVER(ORDER BY MV_ID DESC) AS RNUM
+			         FROM MUSICVIDEO
+			         WHERE THEME_ID = #{theme_id}
+			                       ) MP
+			WHERE RNUM between 1 AND 10
+		]]>
+	</select>
 
-	
-=======
->>>>>>> 7801e111a992d75b3e045c2b49397f81a0adc034
+	<!-- 페이징 출력용  -->
+	<select id="getMVAllList" resultMap="mvResult" parameterType="com.mybatis.mv.Criteria">
+		<![CDATA[
+			SELECT MV_ID, 
+			       MV_NAME, 
+			       MV_SINGER,
+			       MV_ALBUM, 
+			       MV_URL,
+	               MV_IMGURL,
+	               MV_RDATE, 
+	               MV_LYRICS,
+	               THEME_ID 
+	                
+			 FROM ( 
+			        SELECT MV_ID, 
+	                    MV_NAME, 
+	                    MV_SINGER,
+	                    MV_ALBUM, 
+	                    MV_URL,
+	                    MV_IMGURL,
+	                    MV_RDATE,
+	                    MV_LYRICS,
+	                    THEME_ID,
+	                    ROW_NUMBER() OVER(ORDER BY MV_ID DESC) AS RNUM
+			         FROM MUSICVIDEO
+			                       ) MP
+			WHERE RNUM between #{rowStart} AND #{rowEnd}
+		]]>
+	</select>
+
 </mapper>

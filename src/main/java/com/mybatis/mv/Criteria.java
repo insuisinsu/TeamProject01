@@ -5,6 +5,14 @@ import lombok.Data;
 @Data
 public class Criteria {
 	
+	public void setRowStart(int rowStart) {
+		this.rowStart = rowStart;
+	}
+
+	public void setRowEnd(int rowEnd) {
+		this.rowEnd = rowEnd;
+	}
+
 	private int page;
 	private int perPageNum;
 	private int rowStart;

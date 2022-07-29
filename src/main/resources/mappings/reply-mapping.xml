@@ -11,11 +11,11 @@
 	</resultMap>
 
 	<resultMap type="mvreply" id="remv_voMap" >
-		<id property="remv_id" column="REMV_ID"></id>
-		<result property="remv_content" column="REMV_CONTENT" />
-		<result property="remv_rdate" column="REMV_RDATE" />
-		<result property="mv_id" column="MV_ID" />
-		<result property="m_num" column="M_NUM" />
+		<id property="remvId" column="REMV_ID"></id>
+		<result property="remvContent" column="REMV_CONTENT" />
+		<result property="remvRdate" column="REMV_RDATE" />
+		<result property="mvId" column="MV_ID" />
+		<result property="mNum" column="M_NUM" />
 	</resultMap>
 
 	<resultMap id="mvResult" type="mv">
@@ -34,7 +34,7 @@
 	<insert id="insertMVReply">
 	<![CDATA[
 		INSERT INTO REPLY_MV
-		VALUES(ID_SEQ.NEXTVAL, #{remv_content}, default, #{m_num}, #{mv_id})
+		VALUES(ID_SEQ.NEXTVAL, #{remvContent}, default, #{mNum}, #{mvId})
 	]]>
 	</insert>
 	
@@ -48,8 +48,8 @@
 	<!-- 댓글목록 가져오기 -->
 	<select id="selectMVReply" resultMap="remv_voMap">
 	<![CDATA[
-		SELECT * FROM REPLY_MV
-		ORDER BY REMV_ID
+			SELECT REMV_ID, REMV_CONTENT, REMV_RDATE, MV_ID, M_NUM FROM REPLY_MV
+			ORDER BY REMV_ID DESC
 	]]>
 		</select>
 </mapper>

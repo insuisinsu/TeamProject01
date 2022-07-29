@@ -17,6 +17,7 @@
 	게더링 함 -->
 
 <context:component-scan base-package="com.springbook.biz"></context:component-scan>
+<context:component-scan base-package="com.mybatis.mv"></context:component-scan>
 <mvc:annotation-driven></mvc:annotation-driven>
 
 
