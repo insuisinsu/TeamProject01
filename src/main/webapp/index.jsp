@@ -1,21 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>ì²« ë²ˆì§¸ í˜ì´ì§€</title>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
 </head>
 <body>
+<center>
+	<h1> °Ô½ÃÆÇ ÇÁ·Î±×·¥</h1>
+	<hr>
+		<!--  a ÅÂ±×¸¦ ÅëÇØ¼­ ¸µÅ©°É¸° Àü¼Û ¹æ½ÄÀº GET¹æ½ÄÀ¸·Î Àü¼Û -->
+
+		<a href = "getMVList.do"> ±Û ¸ñ·Ï ¹Ù·Î°¡±â</a> <p>
+		<p> <p><p>
+		<hr>
+		<p>
+
+</center>
 
 
-<a href="http://localhost:8687/Mybatis_Join/joinList.do">join í…Œì´ë¸” ì¶œë ¥</a>
 
-
-<hr>
-
-<a href="http://localhost:8687/Mybatis_Join/sjoinList.do">
-sjoin í…Œì´ë¸” ì¶œë ¥
-</a>
 </body>
 </html>
