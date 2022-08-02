@@ -5,24 +5,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>뮤직비디오 리스트</title>
+<title>뮤직비디오 리스트(전체)</title>
 <style>
 	* {margin:0; padding:0;}
 	ul li {display: inline-block;}
 </style>
 </head>
 <body>
-<h2> 뮤직비디오 추천 </h2>
+<h2> 뮤직비디오 추천 (전체) </h2>
 <br><hr>
 <!-- 네비바 시작 -->
 <nav>
 	<ul style="width: 500px; border: 1px solid;">
 		<li> <a href = "getMVAllList.do"> 최신음악 </a></li>
 		<li>인기음악</li>
-		<li>장르음악</li>
+		<li><a href = "getMVList.do?theme_id=1"> 장르음악 </a></li>
 		<li>플레이리스트</li>
 	</ul>
-
 	
 	<div style= "float: right; width: 50%; text-align: right;">
 	<button id = "allMV-btn" class = "MV-btn2"> <a href = "getMVAllList.do"> 전체 </a>  </button>
@@ -34,10 +33,11 @@
 	<button id = "TroMV-btn" class = "MV-btn2"> <a href = "getMVList.do?theme_id=6"> 트로트 </a> </button>		<!-- THEME_ID 6 : 트로트 -->
 	<button id = "RnbMV-btn" class = "MV-btn2"> <a href = "getMVList.do?theme_id=7"> R&B </a> </button>			<!-- THEME_ID 7 : R&B -->
 	</div>
+		
 </nav>
 <!-- 네비바 마무리 -->
 <p>	
-
+<br>
 <center> <!--  테이블 시작 -->
 <table border="1px" width="1000px;">
 	<tr>
@@ -63,22 +63,22 @@
 	</c:forEach>
 </table>
  
-<!--  페이징 처리 (테마별) -->
 <div>
-	  <ul>
-		    <c:if test="${pageMaker.prev}">		<!--  이전 키 (특정 개수 넘을 시 나타남)-->
-		    	<li><a href="getMVList.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
-		    </c:if> 
-		
-		    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-		    	<li><a href="getMVList.do${pageMaker.makeQuery(idx)}&theme_id=${musicvideoVO.theme_id}">${idx}</a></li>
-		    </c:forEach>
-		
-		    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">	<!--  다음 키 (특정 개수 넘을 시 나타남)-->
-		    	<li><a href="getMVList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
-		    </c:if> 
-	  </ul>
+  <ul>
+    <c:if test="${pageMaker.prev}">
+    	<li><a href="getMVAllList.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+    </c:if> 
+
+    <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+    	<li><a href="getMVAllList.do${pageMaker.makeQuery(idx)}">${idx}</a></li>
+    </c:forEach>
+
+    <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+    	<li><a href="getMVAllList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+    </c:if> 
+  </ul>
 </div>
+
 
 
 

@@ -15,6 +15,8 @@ public class MusicvideoServiceImpl implements MusicvideoService {
 	@Autowired
 	private MusicvideoDAOMyBatis MusicvideoDAO;
 	
+	
+
 
 	@Override
 	public void insertMV(MusicvideoVO vo) {
@@ -37,9 +39,22 @@ public class MusicvideoServiceImpl implements MusicvideoService {
 	}
 
 	@Override
-	public List<MusicvideoVO> getMVList(MusicvideoVO vo) {
-		return MusicvideoDAO.getMVList(vo);
+	public List<MusicvideoVO> getMVList(MusicvideoVO vo, Criteria cri) {
+		return MusicvideoDAO.getMVList(vo, cri);
 	}
+
+	@Override
+	public List<MusicvideoVO> getMVAllList(MusicvideoVO vo, Criteria cri) {
+		return MusicvideoDAO.getMVAllList(vo, cri);
+	}
+
+	public int listCount() {
+		return MusicvideoDAO.listCount();
+	}
+
+
+
+
 
 	
 }

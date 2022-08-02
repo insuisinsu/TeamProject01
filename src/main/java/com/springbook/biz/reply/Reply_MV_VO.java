@@ -2,50 +2,59 @@ package com.springbook.biz.reply;
 
 import java.util.Date;
 
+import lombok.Data;
+
+@Data
 public class Reply_MV_VO {
 
-    private String remv_id;
-    private String remv_content;
-    private Date remv_rdate;
-    private int mv_id;
-    private int m_num;
-    
-    public Reply_MV_VO() {};
-    
-    public String getRemv_id() {
-        return remv_id;
-    }
-    public void setRemv_id(String remv_id) {
-        this.remv_id = remv_id;
-    }
-    public String getRemv_content() {
-        return remv_content;
-    }
-    public void setRemv_content(String remv_content) {
-        this.remv_content = remv_content;
-    }
-    public Date getRemv_rdate() {
-        return remv_rdate;
-    }
-    public void setRemv_rdate(Date remv_rdate) {
-        this.remv_rdate = remv_rdate;
+    private String remvId;
+    private String remvContent;
+    private Date remvRdate;
+    private int mvId;
+    private int mNum;
+
+    public Reply_MV_VO() {
     }
 
-    public int getMv_id() {
-        return mv_id;
+    public String getRemvId() {
+        return remvId;
     }
 
-    public void setMv_id(int mv_id) {
-        this.mv_id = mv_id;
+    public void setRemvId(String remvId) {
+        this.remvId = remvId;
     }
 
-    public int getM_num() {
-        return m_num;
+    public String getRemvContent() {
+        return remvContent;
     }
-    public void setM_num(int m_num) {
-        this.m_num = m_num;
+
+    public void setRemvContent(String remvContent) {
+        this.remvContent = remvContent;
     }
-    
-    
-    
+
+    public Date getRemvRdate() {
+        return remvRdate;
+    }
+
+    public void setRemvRdate(Date remvRdate) {
+        this.remvRdate = remvRdate;
+    }
+
+    public int getMvId() {
+        return mvId;
+    }
+
+    public void setMvId(int mvId) {
+        this.mvId = mvId;
+    }
+
+    public int getmNum() {
+        return mNum;
+    }
+
+    public void setmNum(int mNum) {
+        this.mNum = mNum;
+    }
+
+
 }

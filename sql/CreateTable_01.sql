@@ -51,4 +51,3 @@ create table REPLY_MV(
     foreign key (M_NUM) REFERENCES MEMBER (M_NUM)
 );
 
-

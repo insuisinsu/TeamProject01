@@ -1,6 +1,6 @@
 package com.mybatis.mv;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.Data;
 

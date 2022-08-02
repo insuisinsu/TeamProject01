@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.mybatis.mv.Criteria;
 import com.mybatis.mv.MusicvideoService;
 import com.mybatis.mv.MusicvideoVO;
-import com.springbook.biz.reply.Reply_MV_Svc;
+import com.mybatis.mv.PageMaker;
+import com.mybatis.mv.like.MV_LikeVO;
 
 @SessionAttributes("mv")
 @Controller
@@ -27,14 +29,14 @@ public class MusicvideoController {
 	@Autowired
 	private MusicvideoService musicvideoService;	// 인터페이스로 DAO를 호출
 	
-	// 데이터 변환 처리 (DB에서 가져온 값을 JSON 포멧으로 값을 변환 시킴
+	//데이터 변환 처리 (DB에서 가져온 값을 JSON 포멧으로 값을 변환 시킴
 	@RequestMapping (value = "/dataTransform.do")
 	@ResponseBody	// <mvc:annotation-driven> 에서 @ResponseBody를 게더링하고
-	public List<MusicvideoVO> dataTransform(MusicvideoVO vo) {
+	public List<MusicvideoVO> dataTransform(MusicvideoVO vo, Criteria cri) {
 		// Null 체크
 		vo.setSearchCondition("MV_NAME");
 		vo.setSearchKeyword("");
-		List<MusicvideoVO> mvList = musicvideoService.getMVList(vo);
+		List<MusicvideoVO> mvList = musicvideoService.getMVList(vo, cri);
 		
 		return mvList;
 	}
@@ -48,8 +50,12 @@ public class MusicvideoController {
 		System.out.println("뮤비 등록 - 컨트롤러에서 Mybatis를 이용해 insert");
 		
 		musicvideoService.insertMV(vo);
-		return "insertMV.do"; 	// Forward 방식으로 뮤비리스트 페이지에 전송
+		return ""; 	// Forward 방식으로 뮤비리스트 페이지에 전송
 	}
+	
+	
+	
+	
 	
 	// 2. 뮤비 수정
 	@RequestMapping("/updateMV.do")
@@ -89,12 +95,39 @@ public class MusicvideoController {
 		System.out.println("뮤비 조회 - 컨트롤러에서 Mybatis를 이용해 select");
 		
 		model.addAttribute("mv", musicvideoService.getMV(vo));
+		
 		return "getMV.jsp";
 	}
 		
-	// 5. 뮤비 목록 조회
+	// 5. 뮤비 목록 조회 (테마)
 	@RequestMapping("/getMVList.do")
-	public String getMVList(MusicvideoVO vo, Model model) {
+	public String getMVList(MusicvideoVO vo, Model model, Criteria cri)  {
+		System.out.println("뮤비 목록 조회 - 컨트롤러에서 Mybatis를 이용해 select");
+		
+		// NULL 에 대한 기본 처리
+		if (vo.getSearchCondition() == null) { 	// 검색을 하지 않았을때 기본 처리
+			vo.setSearchCondition("MV_NAME");
+		}
+		if (vo.getSearchKeyword()== null) {
+			vo.setSearchKeyword("");
+		}
+		
+		model.addAttribute("mvList", musicvideoService.getMVList(vo, cri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(musicvideoService.listCount());
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		
+
+		return "getMVList.jsp";
+	}
+	
+	// 6. 뮤비 목록 조회
+	@RequestMapping("/getMVAllList.do")
+	public String getMVAllList(MusicvideoVO vo, Model model, Criteria cri) {
 		System.out.println("뮤비 목록 조회 - 컨트롤러에서 Mybatis를 이용해 select");
 		
 		
@@ -104,12 +137,19 @@ public class MusicvideoController {
 		}
 		if (vo.getSearchKeyword()== null) {
 			vo.setSearchKeyword("");
-		}	
+		}
 		
+		model.addAttribute("mvList", musicvideoService.getMVAllList(vo, cri));
 		
-		model.addAttribute("mvList", musicvideoService.getMVList(vo));
-		return "getMVList.jsp";
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(musicvideoService.listCount());
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "getMVAllList.jsp";
 	}
+
 	
-		
+	
 }

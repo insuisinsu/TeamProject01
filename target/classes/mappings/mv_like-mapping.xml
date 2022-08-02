@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LikeDAO">
+<!--  좋아요 조회 -->
+<select id ="getLike" parameterType="com.mybatis.mv.like.MV_LikeVO" resultType="com.mybatis.mv.like.MV_LikeVO">
+	SELECT A.MV_LIKE_NUM MV_LIKE_NUM
+	FROM MV_LIKE A
+	WHERE A.M_NUM = #{m_num, jdbcType=VARCHAR}
+	OR A.MV_ID = #{mv_id, jdbcType=VARCHAR}
+</select>
+<!-- 좋아요 조회 END -->
+
+<!-- 좋아요 전체 조회 -->
+<select id="getLikeList" parameterType="com.mybatis.mv.like.MV_LikeVO" resultType="com.mybatis.mv.like.MV_LikeVO">
+	SELECT  *
+	FROM    MV_LIKE A
+	WHERE A.M_NUM = #{m_num, jdbcType=VARCHAR}
+	OR A.MV_ID = #{mv_id, jdbcType=VARCHAR}
+</select>
+<!-- 좋아요 전체 조회 END -->
+
+<!-- 좋아요 입력 -->
+<insert id="likeInsert" parameterType="com.mybatis.mv.like.MV_LikeVO">
+	INSERT INTO MV_LIKE (MV_LIKE_NUM, MV_ID, M_NUM) 
+            				VALUES(	#{mv_like_num, jdbcType=VARCHAR},
+	            					#{mv_id, jdbcType=VARCHAR}, 
+	            					#{m_num, jdbcType=VARCHAR})
+</insert>
+<!-- 좋아요 입력 END -->
+
+<!-- 좋아요 카운트 증가 -->
+<update id="likeUpdate" parameterType="com.mybatis.mv.like.MV_LikeVO">
+	
+    UPDATE  MV_LIKE
+    SET     MV_LIKE_CNT = MV_LIKE_CNT + 1
+    WHERE	MV_LIKE_NUM = #{mv_like_num, jdbcType=VARCHAR} 
+    AND	    MV_ID = #{mv_id, jdbcType=VARCHAR}
+    OR      M_NUM = #{m_num, jdbcType=VARCHAR}
+</update>
+<!-- 좋아오 카운트 증가 END -->
+
+<!-- 싫어요 카운트 증가  -->
+<update id="unlikeUpdate" parameterType="com.mybatis.mv.like.MV_LikeVO">
+	
+    UPDATE  MV_LIKE
+    SET     MV_UNLIKE_CNT = MV_UNLIKE_CNT + 1
+    WHERE	MV_LIKE_NUM = #{mv_like_num, jdbcType=VARCHAR} 
+    AND	    MV_ID = #{mv_id, jdbcType=VARCHAR}
+    OR      M_NUM = #{m_num, jdbcType=VARCHAR}
+</update>
+<!-- 싫어요 카운트 증가  END -->
+
+</mapper>

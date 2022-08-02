@@ -1,6 +1,6 @@
 package com.mybatis.mv;
 
-import java.util.List; 
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,18 +39,26 @@ public class MusicvideoDAOMyBatis {
 	}
 	
 	
-	
-	
-	
-	// 넘어오는 값(레코드)이 여러개 인 경우
-	public List<MusicvideoVO> getMVList(MusicvideoVO vo) { 	
+	// 넘어오는 값(레코드)이 여러개 인 경우 (테마별)
+	public List<MusicvideoVO> getMVList(MusicvideoVO vo, Criteria cri) {
 		System.out.println("MyBatis를 사용해서 getMVList() 수행 ");
 		
 		return mybatis.selectList("MusicvideoDAO.getMVList", vo);
 	}
 	
 	
+	// 넘어오는 값(레코드)이 여러개 인 경우 (전체)
+	public List<MusicvideoVO> getMVAllList(MusicvideoVO vo, Criteria cri) {
+		System.out.println("MyBatis를 사용해서 getMVAllList() 수행 ");
+		
+		return mybatis.selectList("MusicvideoDAO.getMVAllList", cri);
+	}
 	
-	
-	
+	// 페이징 카운트 처리
+	public int listCount() {
+		System.out.println("페이징 카운트 처리");
+		
+		return mybatis.selectOne("MusicvideoDAO.listCount");
+	}
+
 }

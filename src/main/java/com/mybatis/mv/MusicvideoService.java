@@ -17,6 +17,13 @@ public interface MusicvideoService {
 	// 뮤직비디오 상세 조회 
 	MusicvideoVO getMV(MusicvideoVO vo);
 
-	// 뮤직비디오 목록 조회
-	List<MusicvideoVO> getMVList(MusicvideoVO vo);
+	// 뮤직비디오 목록 조회 (테마)
+	List<MusicvideoVO> getMVList(MusicvideoVO vo, Criteria cri);
+	
+	// 뮤직비디오 목록 조회 (전체)
+	List<MusicvideoVO> getMVAllList(MusicvideoVO vo, Criteria cri);
+	
+	// 게시물 총 개수
+	int listCount();
+	
 }
