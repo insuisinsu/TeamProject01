@@ -13,9 +13,9 @@
 <h2> 회원 보기 </h2>
 <br><hr>
 33 <p>
-${m.m_num }<p>
-${m.m_id }<p>
-${m.m_email }<p>
+${member.m_num }<p>
+${member.m_id }<p>
+${member.m_email }<p>
 33<p>
 
 

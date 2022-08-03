@@ -1,5 +1,5 @@
 -- 초기 테이블 세팅
-DROP TABLE MEMBER
+
 -- 멤버
 create table MEMBER(
     M_NUM number not null primary key,
@@ -13,11 +13,11 @@ create table MEMBER(
     M_ADD1 varchar2(50) not null,
     M_ADD2 varchar2(50) not null,
     M_ADD3 varchar2(50) not null,
-    M_SFNAME varchar2(100),
+    M_SFANME varchar2(100),
     M_OFNAME varchar2(100),
     M_ROLE varchar2(2)
 );
-ALTER TABLE MEMBER RENAME COLUMN M_SFANME TO M_SFNAME;
+
 -- 테마
 create table theme(
     theme_id number not null primary key,

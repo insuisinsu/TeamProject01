@@ -135,6 +135,7 @@
 	</div>
 
 <script>
+
 	function replyBtn() {
 		var reply = $('#reply').val();
 		if(reply == ""){
@@ -145,6 +146,7 @@
 			return true;
 		}
 	}
+
 	/* $('#replyBtn').click(function() {
 		
 		

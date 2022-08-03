@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/*
 
 @Controller 
 public class LikeController {
@@ -20,7 +21,7 @@ public class LikeController {
 	private LikeService likeService;
 
 	
-/*
+
 	//	좋아요 폼
 	@RequestMapping("/likeForm.do")
 	public String likeForm(HttpServletRequest req, MV_LikeVO mlvo, MemberVO mvo, Model model) {
@@ -35,7 +36,6 @@ public class LikeController {
 		System.out.println(mlvo.getM_NUM());
 		
 		List<MV_LikeVO> likelist = likeService.getLikeList(mlvo);
-		//logger.info("LikeController.likeForm :: listAll >>> : " + listAll);
 		System.out.println("LikeController의 likelist");
 		
 		
@@ -43,7 +43,7 @@ public class LikeController {
 		
 		if(likelist.size() <= 0) {
 			nCnt = likeService.likeInsert(mlvo);
-			//logger.info("LikeController.likeInsert() :: nCnt >>> : " + nCnt);
+			
 			System.out.println("LikeController 의 likeInsert : " + nCnt );
 		}
 		
@@ -99,6 +99,55 @@ public class LikeController {
 
 	}	//	end of likeInsert()
 
-	*/
 	
+	
+	//	unlikeUpdate()
+	//	unlike 등록
+	@RequestMapping("/unlikeUpdate.do")
+	@ResponseBody
+	public String unlikeInsert(HttpServletRequest req, Model model, MV_LikeVO mlvo){
+		//	unlikeUpdate() 진입 로그
+		System.out.println("LikeController.unlikeUpdate() 진입 >>> : ");
+
+		//	세팅값 
+		System.out.println("LikeController.unlikeUpdate - mlvo.getMV_UNLIKE_CNT : " + mlvo.getMV_UNLIKE_CNT());
+		System.out.println("LikeController.unlikeUpdate - mlvo.getgetMV_ID : " + mlvo.getMV_ID());
+		System.out.println("LikeController.unlikeUpdate - mlvo.getMV_LIKE_CNT : " + mlvo.getMV_LIKE_CNT());
+		System.out.println("LikeController.unlikeUpdate - mlvo.getM_NUM : " + mlvo.getM_NUM());
+		System.out.println("LikeController.unlikeUpdate - mlvo.getMV_LIKE_NUM : " + mlvo.getMV_LIKE_NUM());
+		
+		String mv_unlike_cnt = "";
+		
+		
+		List<MV_LikeVO> listCnt = likeService.getLike(mlvo);
+		
+		System.out.println("LikeController.unlikeUpdate - listCnt : " +  listCnt);	
+		
+		int nCnt = 0;
+		
+			if(listCnt != null && listCnt.size() > 0) {
+				nCnt = likeService.unlikeUpdate(mlvo);
+				
+				System.out.println("LikeController.unlikeUpdate() :: nCnt >>> : " + nCnt);
+			}
+			
+			List<MV_LikeVO> listAll = likeService.getLikeList(mlvo);
+			if(listAll != null && listAll.size() > 0) {
+				mv_unlike_cnt = listAll.get(0).getMV_UNLIKE_CNT();
+			}
+			return mv_unlike_cnt;
+
+	}	//	end of unlikeInsert()
+
 }	//	end of LikeController
+	
+	
+	
+	
+	
+*/	
+	
+	
+	
+	
+	

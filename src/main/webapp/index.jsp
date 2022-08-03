@@ -18,6 +18,7 @@
 		<a href = "getMember.do?m_num=2"> 2회원 정보 출력</a> <p>
 		<a href = "getMember.do?m_num=3"> 3회원 정보 출력</a> <p>
 
+
 </center>
 
 
