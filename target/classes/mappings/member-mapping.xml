@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberDAO">
+
+	<resultMap id="memberResult" type="member">
+		<id property="m_num" column="M_NUM" />
+		<result property=" m_id" column= " M_ID" />
+		<result property=" m_pw" column= " M_PW" />
+		<result property=" m_email" column= " M_EMAIL" />
+		<result property=" m_phone" column= " M_PHONE" />
+		<result property=" m_birth" column= " M_BIRTH" />
+		<result property=" m_gender" column= " M_GENDER" />
+		<result property=" m_rdate" column= " M_RDATE" />
+		<result property=" m_add1" column= " M_ADD1" />
+		<result property=" m_add2" column= " M_ADD2" />
+		<result property=" m_add3" column= " M_ADD3" />
+		<result property=" m_sfname" column= " M_SFNAME" />
+		<result property=" m_ofname" column= " M_OFNAME" />
+		<result property=" m_role" column= " M_ROLE" />
+	</resultMap>
+	
+	<insert id="insertMember" parameterType="member">
+		<![CDATA[
+		INSERT INTO MEMBER(M_NUM, M_ID, M_PW, M_EMAIL, M_PHONE, M_BIRTH, M_GENDER,
+							M_ADD1, M_ADD2, M_ADD3, M_SFNAME, M_OFNAME, M_ROLE)
+		VALUES((SELECT NVL(MAX(M_NUM), 0) + 1 FROM MEMBER), 'test', #{M_PW}, #{M_EMAIL},
+				#{M_PHONE}, #{M_BIRTH}, #{M_GENDER}, #{M_ADD1}, #{M_ADD2}, #{M_ADD3},
+				#{M_SFNAME}, #{M_OFNAME}, #{M_ROLE})
+		]]>
+	</insert>
+	
+	
+	
+	<select id="getMember" resultType="member">
+		<![CDATA[
+		SELECT *
+		FROM MEMBER
+		WHERE M_NUM = #{m_num}
+		]]>
+	</select>
+	
+	
+
+</mapper>

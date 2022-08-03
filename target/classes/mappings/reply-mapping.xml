@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reply">
-
+<!-- 
 	<resultMap type="member" id="memberMap">
 		<id property="m_num" column="M_NUM"></id>
 		<result property="m_id" column="M_ID"></result>
@@ -30,7 +30,7 @@
 		<result property="theme_id" column="THEME_ID" />
 	</resultMap>
 	
-	<!-- 댓글 내용 입력 -->
+	댓글 내용 입력
 	<insert id="insertMVReply">
 	<![CDATA[
 		INSERT INTO REPLY_MV
@@ -38,18 +38,18 @@
 	]]>
 	</insert>
 	
-	<!-- 멤버에서 가져오기 -->
+	멤버에서 가져오기
 	<select id="selectMember" resultMap="memberMap">
 	<![CDATA[
 		SELECT * FROM MEMBER
 	]]>
 	</select>
 	
-	<!-- 댓글목록 가져오기 -->
+	댓글목록 가져오기
 	<select id="selectMVReply" resultMap="remv_voMap">
 	<![CDATA[
 			SELECT REMV_ID, REMV_CONTENT, REMV_RDATE, MV_ID, M_NUM FROM REPLY_MV
 			ORDER BY REMV_ID DESC
 	]]>
-		</select>
+		</select> -->
 </mapper>

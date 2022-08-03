@@ -7,15 +7,17 @@
         <setting name="jdbcTypeForNull" value="NULL" />
     </settings>
 	<typeAliases>
-		<typeAlias type="com.springbook.biz.reply.MemberVOTest" alias="member"/>
+		<!-- <typeAlias type="com.springbook.biz.reply.MemberVOTest" alias="member"/> -->
 		<typeAlias type="com.springbook.biz.reply.Reply_MV_VO" alias="mvreply"></typeAlias>
 		<typeAlias type="com.mybatis.mv.MusicvideoVO" alias="mv"></typeAlias>
+		<typeAlias type="com.mybatis.member.MemberVO" alias="member"></typeAlias>
 	</typeAliases>
 
 
     
 	<mappers>
 		<mapper resource="mappings/mv-mapping.xml" />
+		<mapper resource="mappings/member-mapping.xml" />
 		<mapper resource="mappings/reply-mapping.xml" />
 	</mappers>
 </configuration>
